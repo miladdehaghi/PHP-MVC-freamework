@@ -1,0 +1,2 @@
+// Avoid listing folders and files to clients
+Options -Indexes

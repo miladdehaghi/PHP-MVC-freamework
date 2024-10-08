@@ -1,0 +1,14 @@
+# Turn on URL rewriting
+RewriteEngine On
+
+# The base directory for the project
+RewriteBase /php-mvc/public
+
+# Redirect requests that are not for real files or directories to index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Route all other requests to index.php
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+
+# This tells Apache to use index.php as the main entry point.

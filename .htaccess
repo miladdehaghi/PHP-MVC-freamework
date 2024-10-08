@@ -1,0 +1,13 @@
+# Enable the rewrite engine for URL rewriting
+RewriteEngine On
+
+# If the URL is empty (i.e., the root URL), rewrite it to the 'public' folder
+# ^$ - Matches an empty string (the root URL, like 'example.com/')
+# [L] - This is the "Last" rule; no further rules will be processed if this one matches
+RewriteRule ^$ public/ [L]
+
+# For any other request, rewrite it to the 'public' folder, maintaining the original path
+# (.*) - Matches any URL path (anything after the domain)
+# public/$1 - Rewrites the path to the 'public' folder, appending the original path ($1 refers to whatever was captured by (.*))
+# [L] - Again, stops further processing if this rule matches
+RewriteRule (.*) public/$1 [L]
