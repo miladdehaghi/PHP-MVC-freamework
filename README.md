@@ -5,7 +5,7 @@ Directory Structure
 Here's an overview of the directory structure:
 
 
-
+```
 /PHP-MVC-framework
 │
 ├── app
@@ -26,6 +26,8 @@ Here's an overview of the directory structure:
 ├── .htaccess
 ├── composer.json
 └── README.md
+
+```
 Getting Started
 Step 1: Creating a Controller
 Navigate to the Controllers Directory
