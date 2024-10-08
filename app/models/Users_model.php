@@ -1,6 +1,6 @@
 <?php
 
-class UsersModel extends BaseModel {
+class Users_Model extends BaseModel {
     public function __construct() {
         parent::__construct('users');
     }

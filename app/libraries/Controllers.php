@@ -8,7 +8,7 @@ class Controllers
         require_once '../app/models/' . ucwords($model) . '_model.php';
         
         // Append 'Model' to the model name to match the class name convention
-        $model .= 'Model';
+        $model .= '_Model';
 
         // Return a new instance of the model class
         return new $model;

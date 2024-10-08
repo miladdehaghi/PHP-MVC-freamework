@@ -1,5 +1,5 @@
 <?php
-class Users extends Controllers
+class Users_Controller extends Controllers
 {
     private $userModel; // Property to hold the instance of the user model
 

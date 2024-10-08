@@ -1,135 +1,115 @@
-PHP MVC Framework
-Welcome to the PHP MVC framework! This framework is designed to help you build scalable and maintainable PHP applications with a clear separation of concerns.
 
-Directory Structure
+
+# PHP MVC Framework
+
+Welcome to the PHP MVC Framework! This framework is designed to help you build scalable and maintainable PHP applications with a clear separation of concerns.
+
+## Table of Contents
+
+* [Directory Structure](#directory-structure)
+* [Getting Started](#getting-started)
+	+ [Creating a Controller](#creating-a-controller)
+	+ [Creating a Model](#creating-a-model)
+	+ [Using baseModel](#using-basemodel)
+* [Additional Resources](#additional-resources)
+* [License](#license)
+
+## Directory Structure
+
 Here's an overview of the directory structure:
-
 
 ```
 /PHP-MVC-framework
-│
 ├── app
 │   ├── config
 │   ├── controllers
 │   ├── models
 │   └── views
-│
 ├── core
 │   ├── App.php
 │   ├── Controller.php
 │   └── Model.php
-│
 ├── public
 │   ├── index.php
 │   └── assets
-│
 ├── .htaccess
 ├── composer.json
 └── README.md
-
 ```
-Getting Started
-Step 1: Creating a Controller
-Navigate to the Controllers Directory
 
-All your controllers will be stored in the /app/controllers directory.
+## Getting Started
 
-Create a New Controller File
+### Creating a Controller
 
-Create a new PHP file in the /app/controllers directory. Name it appropriately based on the function of the controller. Let’s use BookController.php as an example, which will handle book-related functionality.
+1. **Navigate to the Controllers Directory**: All your controllers will be stored in the `/app/controllers` directory.
+2. **Create a New Controller File**: Create a new PHP file in the `/app/controllers` directory, e.g., `Book_Controller.php`.
+3. **Extend the Base Controller**: In your new file, extend the base `Controller` class.
 
-Extend the Base Controller
+```php
+class Book_Controller extends Controller {
+    private $bookModel;
 
-In your new controller file, extend the base Controller class found in the /core/Controller.php file. Here’s a basic example:
+    public function __construct() {
+        $this->bookModel = $this->model('Book_Model');
+    }
 
-php
-
-Copy
-<?php
-
-class BookController extends Controller
-{
-    public function index()
-    {
-        $books = $this->model('Book')->getAllBooks();
+    public function index() {
+        $books = $this->bookModel->getAllBooks();
         $this->view('book/index', ['books' => $books]);
     }
 
-    public function show($id)
-    {
-        $book = $this->model('Book')->getBookById($id);
+    public function show($id) {
+        $book = $this->bookModel->getBookById($id);
         $this->view('book/show', ['book' => $book]);
     }
 }
-This example creates a BookController with an index method that loads a list of books and a show method that loads details of a specific book.
+```
 
-Step 2: Creating a Model
-To create a model, follow these steps:
+### Creating a Model
 
-Navigate to the Models Directory
+1. **Navigate to the Models Directory**: Models are stored in the `/app/models` directory.
+2. **Create a New Model File**: Create a new PHP file, e.g., `Book_Model.php`.
+3. **Extend the Base Model**: Extend the base `Model` class.
 
-Models are stored in the /app/models directory.
-
-Create a New Model File
-
-Create a new PHP file in the /app/models directory. For example, if you’re creating a Book model, name it Book.php.
-
-Extend the Base Model
-
-Extend the base Model class found in the /core/Model.php file. Here’s an example:
-
-php
-
-Copy
-<?php
-
-class Book extends Model
-{
-    public function getAllBooks()
-    {
-        // Your query here to get all books
+```php
+class Book_Model extends Model {
+    public function getAllBooks() {
+        // Your code to fetch all books
     }
 
-    public function getBookById($id)
-    {
-        // Your query here to get a book by ID
+    public function getBookById($id) {
+        // Your code to fetch a book by ID
     }
 }
-Step 3: Creating a View
-Navigate to the Views Directory
+```
 
-Go to the /app/views directory.
+### Using baseModel
 
-Create View Files
+The `baseModel` class provides a simple interface for database operations. Here’s how to use it in your models and controllers:
 
-Create corresponding view files for the methods in your controller. For example:
+1. **In Your Controller**:
+   - Add a private variable for the model.
+   - Instantiate the model in the constructor.
 
+```php
+private $bookModel;
 
-Copy
-/app/views/book/index.php
-/app/views/book/show.php
-Design Your Views
+public function __construct() {
+    $this->bookModel = $this->model('Books'); // Instantiates the model
+}
+```
 
-Add HTML and PHP code to your view files to render the data passed from the controller. Ensure to include your Tailwind CSS classes for styling:
+2. **Fetching Data**:
+   - Use the model variable to call methods.
 
-html
+```php
+$books = $this->bookModel->getAllBooks(); // Retrieves all books
+```
 
-Copy
-<!-- In book/index.php -->
-<div class="container mx-auto">
-    <h1 class="text-2xl font-bold">Books</h1>
-    <ul>
-        <?php foreach ($books as $book): ?>
-            <li><?php echo $book['title']; ?></li>
-        <?php endforeach; ?>
-    </ul>
-</div>
+## Additional Resources
 
-<!-- In book/show.php -->
-<div class="container mx-auto">
-    <h1 class="text-2xl font-bold"><?php echo $book['title']; ?></h1>
-    <p><?php echo $book['description']; ?></p>
-</div>
-Additional Resources
-Check the README.md file and composer.json for more information on dependencies and project setup.
+For more information on dependencies and project setup, check the `composer.json` file.
 
+## License
+
+This project is licensed under the MIT License.

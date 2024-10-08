@@ -31,6 +31,7 @@ class Core
             require_once '../app/controllers/' . $this->currentController . '_controller.php';
 
             // Instantiate the current controller class
+            $this->currentController .= '_Controller';
             $this->currentController = new $this->currentController;
 
             // Check if a method exists for the second part of the URL

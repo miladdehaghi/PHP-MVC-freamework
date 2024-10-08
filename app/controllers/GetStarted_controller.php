@@ -1,5 +1,5 @@
 <?php
-class GetStarted extends Controllers
+class GetStarted_Controller extends Controllers
 {
     public function index()
     {
