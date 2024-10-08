@@ -1,3 +1,7 @@
+Here’s the revised `README.md` file, using `baseModel` only in the models and not in the controllers:
+
+---
+
 # PHP MVC Framework
 
 Welcome to the PHP MVC Framework! This framework is designed to help you build scalable and maintainable PHP applications with a clear separation of concerns.
@@ -45,19 +49,15 @@ Here's an overview of the directory structure:
 
 ```php
 class Book_Controller extends Controller {
-    private $bookModel;
-
-    public function __construct() {
-        $this->bookModel = $this->model('Book_Model');
-    }
-
     public function index() {
-        $books = $this->bookModel->getAllBooks();
+        $bookModel = $this->model('Book_Model'); // Instantiate the model
+        $books = $bookModel->getAllBooks(); // Retrieve all books
         $this->view('book/index', ['books' => $books]);
     }
 
     public function show($id) {
-        $book = $this->bookModel->getBookById($id);
+        $bookModel = $this->model('Book_Model'); // Instantiate the model
+        $book = $bookModel->getBookById($id); // Retrieve the book by ID
         $this->view('book/show', ['book' => $book]);
     }
 }
@@ -72,36 +72,34 @@ class Book_Controller extends Controller {
 ```php
 class Book_Model extends Model {
     public function getAllBooks() {
-        return $this->get(); // Using the get() method from baseModel to fetch all books
+        return $this->select(); // Use the select method from baseModel
     }
 
     public function getBookById($id) {
-        // Your code to fetch a book by ID
+        return $this->find($id); // Use the find method from baseModel
     }
 }
 ```
 
 ### Using baseModel
 
-The `baseModel` class provides a simple interface for database operations. Here’s how to use it in your models and controllers:
+The `baseModel` class provides a simple interface for database operations. Here’s how to use it in your models:
 
-1. **In Your Controller**:
-   - Add a private variable for the model.
-   - Instantiate the model in the constructor.
+1. **In Your Model**:
+   - Extend `baseModel` and utilize its methods for database interactions.
 
 ```php
-private $bookModel;
+class Book_Model extends baseModel {
+    protected $table = 'books'; // Specify the table name
 
-public function __construct() {
-    $this->bookModel = $this->model('Book_Model'); // Instantiates the model
+    public function getAllBooks() {
+        return $this->select(); // Fetch all records from the books table
+    }
+
+    public function getBookById($id) {
+        return $this->find($id); // Fetch a book by its ID
+    }
 }
-```
-
-2. **Fetching Data**:
-   - Use the model variable to call methods.
-
-```php
-$books = $this->bookModel->getAllBooks(); // Retrieves all books using baseModel's get() method
 ```
 
 ## Additional Resources
@@ -112,3 +110,6 @@ For more information on dependencies and project setup, check the `composer.json
 
 This project is licensed under the MIT License.
 
+---
+
+Feel free to modify any section further or let me know if you need additional changes!
